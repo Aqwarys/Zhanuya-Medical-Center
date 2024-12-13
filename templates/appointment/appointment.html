@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Create Appointment{% endblock title %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow" style="width: 100%; max-width: 600px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Book an Appointment</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Full Name -->
+                <div class="mb-3">
+                    <label for="id_full_name" class="form-label">Full Name</label>
+                    <input type="text" name="full_name" class="form-control" id="id_full_name"
+                           value="{{ form.full_name.value|default_if_none:user.first_name|stringformat:"s" | add:" " | add:user.last_name}}"
+                           placeholder="Enter your full name">
+                    {% if form.full_name.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.full_name.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="id_email"
+                           value="{{ form.email.value|default_if_none:user.email }}"
+                           placeholder="Enter your email">
+                    {% if form.email.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.email.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-3">
+                    <label for="id_phone_number" class="form-label">Phone Number</label>
+                    <input type="text" name="phone_number" class="form-control" id="id_phone_number"
+                           value="{{ form.phone_number.value|default_if_none:'' }}"
+                           placeholder="Enter your phone number">
+                    {% if form.phone_number.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.phone_number.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Date -->
+                <div class="mb-3">
+                    <label for="id_date" class="form-label">Date</label>
+                    <input type="date" name="date" class="form-control" id="id_date"
+                           value="{{ form.date.value|default_if_none:'' }}">
+                    {% if form.date.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.date.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Time -->
+                <div class="mb-3">
+                    <label for="id_time" class="form-label">Time</label>
+                    <input type="time" name="time" class="form-control" id="id_time"
+                           value="{{ form.time.value|default_if_none:'' }}">
+                    {% if form.time.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.time.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Message -->
+                <div class="mb-3">
+                    <label for="id_message" class="form-label">Message</label>
+                    <textarea name="message" class="form-control" id="id_message"
+                              placeholder="Enter your message (optional)">{{ form.message.value|default_if_none:'' }}</textarea>
+                    {% if form.message.errors %}
+                        <div class="text-danger mt-1">
+                            {{ form.message.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

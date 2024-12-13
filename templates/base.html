@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/style2.css" %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+
+    {% comment %} {% if user.is_authenticated and '/register' not in request.path and '/login' not in request.path %}
+            <div class="last navbar-brand">{{ user.first_name }} | <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-light">Logout</button></form></div>
+            {% elif '/register' not in request.path and 'login' not in request.path %}
+            <div class="last "><a class="btn btn-outline-dark" href="{% url 'register' %}">Sign up</a> | <a class="btn btn-outline-dark" href="{% url 'login' %}">Login</a></div>
+            {% endif %} {% endcomment %}
+
+
+
+    <header class="bg-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+          <a href="{% url "index" %}"><img src="{% static 'images/logo.png' %}" alt="Zhanuya Logo" class="logo"></a>
+          <nav class="d-flex gap-4">
+            <a href="#aboutus" class="text-dark text-decoration-none mt-1">About Us</a>
+            <a href="#services" class="text-dark text-decoration-none mt-1">Services</a>
+            <a href="#appointment" class="text-dark text-decoration-none mt-1">Appointments</a>
+            <a href="#resources" class="text-dark text-decoration-none mt-1">Health Resources</a>
+            <a href="#contact" class="text-dark text-decoration-none mt-1">Contact Us</a>
+            <div class="last">
+              {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                  <a class="btn btn-outline-dark" href="{% url 'admin:index' %}">Admin</a>
+                {% endif %}
+
+                <span class="navbar-brand">{{ user.first_name }}</span>
+                <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-dark">Logout</button>
+                </form>
+              {% else %}
+                {% if '/register' not in request.path and '/login' not in request.path %}
+                  <a class="btn btn-outline-dark" href="{% url 'register' %}">Sign up</a>
+                  <a class="btn btn-outline-dark" href="{% url 'login' %}">Login</a>
+                {% endif %}
+              {% endif %}
+
+              {% if user.role and user.role.name == 'Staff' and request.path == '/home/' %}
+                  <a class="btn btn-outline-dark" href="{% url 'schedules' %}">Schedules</a>
+                {% endif %}
+            </div>
+
+
+            <select class="form-select w-auto">
+              <option selected>EN</option>
+              <option value="1">RU</option>
+              <option value="2">KZ</option>
+            </select>
+          </nav>
+        </div>
+      </header>
+      {% if request.path == '/home/' %}
+        <section class="bg-primary text-white text-center py-5">
+            <div class="container">
+            <h1>Be healthy, live actively and enjoy every minute!</h1>
+            <p class="lead">Zhanuya is your partner in taking care of the health and well-being of SDU students. Make an appointment, support, and all services in one convenient place.</p>
+            <a href="{% if user.is_authenticated  %}{% url "appointment" %} {% else %}{% url 'login' %} {% endif %}" class="btn btn-light btn-lg">Make Appointment</a>
+            </div>
+        </section>
+        {% endif %}
+
+
+
+
+
+        {% block content %}
+        {% endblock %}
+    {% comment %} <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main> {% endcomment %}
+    <!-- Footer -->
+  <footer id="contact" class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About Us</h5>
+          <p>Taking care of your health is our main goal.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Categories</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Doctors</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Surgeons</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Nursing Staff</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p>Address: Abylai Khan 1/1</p>
+          <p>Phone: 8 (778) 635 44 77</p>
+          <p>Email: <a href="mailto:info@zhanuya.kz" class="text-white text-decoration-none">info@zhanuya.kz</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

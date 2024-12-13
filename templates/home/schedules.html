@@ -1,0 +1,32 @@
+<!-- schedule_list.html -->
+{% extends "base.html" %}
+
+{% block title %}Schedules{% endblock %}
+
+{% block content %}
+  <div class="container" style="height: 500px;">
+    <h2 class="my-4">Schedules</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Email</th>
+          <th>Appointment Time</th>
+          <th>Phpne Number</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment in appointments %}
+          <tr>
+            <td>{{ appointment.full_name }}</td>
+            <td>{{ appointment.email }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.phone_number }}</td>
+            <td>{{ appointment.message }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

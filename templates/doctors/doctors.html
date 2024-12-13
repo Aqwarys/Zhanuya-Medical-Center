@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block tittle %}Doctors{% endblock tittle %}
+
+{% block content %}
+    <section id="resources" class="specialists py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Meet Our Specialists</h2>
+            <div class="row g-4 justify-content-center">
+                {% for doctor in doctors %}
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'doctors:doctor' doctor.id %}" style="text-decoration:none;">
+                      <div class="card specialist-card text-center">
+                        <img src="{% static "images/specialist4.png" %}" class="card-img-top rounded-circle mx-auto mt-3" alt="Nurse">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ doctor.full_name }}</h5>
+                          <p class="card-text text-muted">{{ doctor.specialization }}</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

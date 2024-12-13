@@ -1,0 +1,14 @@
+<!-- success.html -->
+{% extends "base.html" %}
+
+{% block title %}Success!{% endblock %}
+
+{% block content %}
+  <section class="bg-success text-white text-center py-5 d-flex justify-content-center align-items-center" style="height: 500px;">
+    <div class="container p-6">
+      <h1 class="display-4">Your Appointment Request Was Successful!</h1>
+      <p class="lead">Thank you for submitting your request. We will get back to you shortly.</p>
+      <a href="{% url 'index' %}" class="btn btn-light btn-lg">Back to Home</a>
+    </div>
+  </section>
+{% endblock %}

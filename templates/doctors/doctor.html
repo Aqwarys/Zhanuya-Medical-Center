@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ doctor.full_name }}</h1>
+    <img src="{% static "images/specialist4.png" %}" alt="{{ doctor.full_name }}" style="width: auto; height: 200px;">
+    <p><strong>Available Days:</strong> {{ doctor.available_days }}</p>
+    <p><strong>Experience:</strong> {{ doctor.experience }}</p>
+    <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+    <p><strong>Biography:</strong> {{ doctor.biography }}</p>
+</div>
+{% endblock %}

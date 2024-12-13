@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+  <!-- Hero Section -->
+
+
+  <!-- Services Section -->
+  <section id="aboutus"class="py-5">
+    <div class="container text-center">
+      <h2 class="mb-4 text-primary">Are you looking for</h2>
+      <div class="row">
+        <!-- Карточка 1 -->
+        <div class="col-md-4">
+          <div class="home card">
+            <div class="card-img-container">
+              <img src="{% static 'images/heart.png' %}" alt="Medical Services" class="card-img-custom">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Medical Services</h5>
+              <p class="card-text">We provide a wide range of medical services, including preventive check-ups, treatment of illnesses, and vaccinations.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Карточка 2 -->
+        <div class="col-md-4">
+          <div class="home card">
+            <div class="card-img-container">
+              <img src="{% static 'images/brain.png' %}" alt="Psychological Support" class="card-img-custom">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Psychological Support</h5>
+              <p class="card-text">Our psychologists and counselors are here to support you with individual consultations, therapy sessions, and psychosocial programs.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Карточка 3 -->
+        <div class="col-md-4">
+          <div class="home card">
+            <div class="card-img-container">
+              <img src="{% static 'images/bag.png' %}" alt="Emergency Assistance" class="card-img-custom">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Emergency Assistance</h5>
+              <p class="card-text">In urgent situations, we're here to provide prompt medical support when you need it most.</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appointment"class="py-5">
+    <div class="container d-flex align-items-center">
+      <!-- Изображение -->
+      <div class="col-md-6 text-center">
+        <img src={% static "images/calendar.png" %} alt="Calendar Icon" class="img-fluid" style="max-width: 80%;">
+      </div>
+      <!-- Текстовый блок -->
+      <div class="col-md-6">
+        <h2 class="text-primary fw-bold">Take care of your health with one click</h2>
+        <p class="text-secondary">
+          Easily schedule your visit with our medical or psychological specialists. Choose a convenient time and get the care you need without delays. Your health and well-being are just a few clicks away!
+        </p>
+        <a href="{% if user.is_authenticated  %}{% url "appointment" %} {% else %}{% url 'login' %} {% endif %}" class="btn btn-primary shadow">Make Appointment</a>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section id="services"class="services py-5">
+    <div class="container">
+      <h2 class="text-center">Our Services</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/vac.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Vaccination</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/comp.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECG</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/flura.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Fluorography</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/trauma.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Traumatologist</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/blood.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Blood test</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="home card">
+            <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+              <img src="{% static 'images/gastra.png' %}" class="img-fluid" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Gastroenterology</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  <section id="resources" class="specialists py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Meet Our Specialists</h2>
+      <div class="row g-4 justify-content-center">
+        {% for doctor in doctors %}
+        <div class="col-md-3 col-sm-6">
+          <a href="{% url 'doctors:doctor' doctor.id %}" style="text-decoration:none;">
+            <div class="card specialist-card text-center">
+              <img src="{% static "images/specialist4.png" %}" class="card-img-top rounded-circle mx-auto mt-3" alt="Nurse">
+              <div class="card-body">
+                <h5 class="card-title">{{ doctor.full_name }}</h5>
+                <p class="card-text text-muted">{{ doctor.specialization }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+        </div>
+        <h4 class="text-center mt-3"><a href="{% url 'doctors:sheet' %}">See all</a></h4>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
